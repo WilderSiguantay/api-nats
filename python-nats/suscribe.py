@@ -6,7 +6,8 @@ from pymongo import MongoClient
 MONGO_URI = 'mongodb://34.69.77.226:27017' #servidor donde esta la db
 
 client = MongoClient(MONGO_URI) #nos devuelve un objeto llamado cliente, el cursor o la conexion
-
+db = client['teststore'] #base de datos, si no existe la crea
+collection = db['products'] #coleccion de la base de datos
 
 async def run(loop):
     nc = NATS()
@@ -32,8 +33,7 @@ async def run(loop):
         subject = msg.subject
         reply = msg.reply
         data = msg.data.decode()
-        db = client['teststore'] #base de datos, si no existe la crea
-        collection = db['products'] #coleccion de la base de datos
+        
         #Guardar datos o documentos
         collection.insert_one(data)
         print("Received a message on '{subject} {reply}': {data}".format(
