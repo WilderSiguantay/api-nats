@@ -22,7 +22,7 @@ async def run(loop):
     }
 
     await nc.connect(**options)
-    print(f"Connected to NATS at {nc.connected_url.netloc}...")
+    print("Connected to NATS at {nc.connected_url.netloc}...")
 
     async def subscribe_handler(msg):
         subject = msg.subject
