@@ -8,7 +8,6 @@ RUN apt-get update && \
 FROM build AS build-venv
 COPY requirements.txt /requirements.txt
 RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
-RUN /venv/bin/pip install pymongo
 # Copy the virtualenv into a distroless image
 FROM gcr.io/distroless/python3-debian10
 COPY --from=build-venv /venv /venv

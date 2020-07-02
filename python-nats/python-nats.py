@@ -16,11 +16,14 @@ client=MongoClient("MONGO_URI")
 
 async def run(loop):
     nc = NATS()
+    print("Entramos a RUN")
+
 
     await nc.connect(servers=["nats://nats:4222"], loop=loop)
 
     async def message_handler(msg):
         data = json.loads(msg.data.decode())
+        print(data)
         insertar(data)
 
     sid = await nc.subscribe("foo", cb=message_handler)
@@ -39,6 +42,7 @@ def insertar(datos):
     collection.insert_one(datos)
 
 if __name__ == '__main__':
+    print("Entramos a iniciar")
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run(loop))
     loop.close()
