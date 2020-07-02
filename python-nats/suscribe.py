@@ -1,6 +1,7 @@
 import asyncio
 import os
 import signal
+import json
 import pymongo
 from nats.aio.client import Client as NATS
 from pymongo import MongoClient
@@ -49,8 +50,8 @@ async def run(loop):
         try:
             destination = 'products'
             collection = client[MONGODB_DATABASE][destination]
-            
-            collection.insert(data)
+            datos = json.loads(data) # <-- returned data is not string
+            collection.insert(datos)
             print("Data saved at %s collection in %s database: %s" % (destination, MONGODB_DATABASE, data))
         except Exception as error:
             print("Error saving data: %s" % str(error))
