@@ -3,22 +3,22 @@ import os
 import signal
 from nats.aio.client import Client as NATS
 from pymongo import MongoClient
+import pymongo
 MONGODB_HOST = '34.69.77.226'
 MONGODB_PORT = '27017'
 MONGODB_TIMEOUT = 1000
+MONGODB_DATABASE = 'teststore'
 URI_CONNECTION = "mongodb://" + MONGODB_HOST + ":" + MONGODB_PORT +  "/"
 
 try:
     client = pymongo.MongoClient(URI_CONNECTION, serverSelectionTimeoutMS=MONGODB_TIMEOUT)
     client.server_info()
-    print ("OK -- Connected to MongoDB at server %s") % (MONGODB_HOST)
+    print ("OK -- Connected to MongoDB at server %s" % (MONGODB_HOST))
 except pymongo.errors.ServerSelectionTimeoutError as error:
-    print ("Error with MongoDB connection: %s") % error
+    print ("Error with MongoDB connection: %s" % error)
 except pymongo.errors.ConnectionFailure as error:
-    print("Could not connect to MongoDB: %s") % error
+    print("Could not connect to MongoDB: %s" % error)
 
-db = client['teststore'] #base de datos, si no existe la crea
-collection = db['products'] #coleccion de la base de datos
 
 async def run(loop):
     nc = NATS()
@@ -44,9 +44,14 @@ async def run(loop):
         subject = msg.subject
         reply = msg.reply
         data = msg.data.decode()
-        
-        #Guardar datos o documentos
-        collection.insert_one(data)
+        try:
+            destination = 'products'
+            collection = client[MONGODB_DATABASE][destination]
+            collection.insert_one(data)
+            print("Data saved at %s collection in %s database: %s" % (destination, MONGODB_DATABASE, database_entry))
+        except Exception as error:
+            print("Error saving data: %s" % str(error))
+                #Guardar datos o documentos
         print("Received a message on '{subject} {reply}': {data}".format(
             subject=subject, reply=reply, data=data))
         
