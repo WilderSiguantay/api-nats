@@ -49,8 +49,8 @@ async def run(loop):
         try:
             destination = 'products'
             collection = client[MONGODB_DATABASE][destination]
-            datos = data.json
-            collection.insert_one(datos)
+            
+            collection.insert_one({"Nombre":"Aleix Ribera","Departamento":"Xela","Edad":0,"Forma de contagio":"Comunitario","Estado":"Recuperado"})
             print("Data saved at %s collection in %s database: %s" % (destination, MONGODB_DATABASE, database_entry))
         except Exception as error:
             print("Error saving data: %s" % str(error))
