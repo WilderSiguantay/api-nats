@@ -1,8 +1,18 @@
 # [begin subscribe_json]
 import asyncio
 import json
+import numpy as np
 from nats.aio.client import Client as NATS
 from nats.aio.errors import ErrTimeout
+from pymongo import MongoClient
+#from redis import Redis
+#from bson import json_util
+
+#Conexion a bases de datos
+MONGO_URI = 'mongodb://34.69.77.226:27017' #servidor donde está la db
+client=MongoClient("MONGO_URI")
+
+
 
 async def run(loop):
     nc = NATS()
@@ -11,7 +21,7 @@ async def run(loop):
 
     async def message_handler(msg):
         data = json.loads(msg.data.decode())
-        print(data)
+        insertar(data)
 
     sid = await nc.subscribe("foo", cb=message_handler)
     await nc.flush()
@@ -21,6 +31,12 @@ async def run(loop):
     #await asyncio.sleep(1, loop=loop)
     await nc.close()
 # [end subscribe_json]
+
+def insertar(datos):
+    db = client['teststore'] #base de datos, si no existe la crea
+    collection = db['products'] #coleccion de la base de datos
+    #Guardar datos o documentos
+    collection.insert_one(datos)
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
