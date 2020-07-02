@@ -1,7 +1,7 @@
 # [begin subscribe_json]
+# coding=utf-8
 import asyncio
 import json
-import numpy as np
 from nats.aio.client import Client as NATS
 from nats.aio.errors import ErrTimeout
 from pymongo import MongoClient
@@ -9,7 +9,7 @@ from pymongo import MongoClient
 #from bson import json_util
 
 #Conexion a bases de datos
-MONGO_URI = 'mongodb://34.69.77.226:27017' #servidor donde está la db
+MONGO_URI = 'mongodb://34.69.77.226:27017' #servidor donde esta la db
 client=MongoClient("MONGO_URI")
 
 

@@ -20,7 +20,7 @@ kubectl create deployment miapp-python-n --image=wildering/python-nats -n proyec
 ## Crear servicio
 
 ```
-kubectl expose deployment miapp-python-n --name=miapp-pythonN-srv --port=8080 --target-port=8080 -n proyecto
+kubectl expose deployment miapp-python-n --name=miapp-python-nats-srv --port=8080 --target-port=8080 -n proyecto
 ```
 
 ## Crear el Ingress ya sea para nginx o para Contour
