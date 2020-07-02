@@ -3,9 +3,20 @@ import os
 import signal
 from nats.aio.client import Client as NATS
 from pymongo import MongoClient
-MONGO_URI = 'mongodb://34.69.77.226:27017' #servidor donde esta la db
+MONGODB_HOST = '34.69.77.226'
+MONGODB_PORT = '27017'
+MONGODB_TIMEOUT = 1000
+URI_CONNECTION = "mongodb://" + MONGODB_HOST + ":" + MONGODB_PORT +  "/"
 
-client = MongoClient(MONGO_URI) #nos devuelve un objeto llamado cliente, el cursor o la conexion
+try:
+    client = pymongo.MongoClient(URI_CONNECTION, serverSelectionTimeoutMS=MONGODB_TIMEOUT)
+    client.server_info()
+    print ("OK -- Connected to MongoDB at server %s") % (MONGODB_HOST)
+except pymongo.errors.ServerSelectionTimeoutError as error:
+    print ("Error with MongoDB connection: %s") % error
+except pymongo.errors.ConnectionFailure as error:
+    print("Could not connect to MongoDB: %s") % error
+
 db = client['teststore'] #base de datos, si no existe la crea
 collection = db['products'] #coleccion de la base de datos
 
