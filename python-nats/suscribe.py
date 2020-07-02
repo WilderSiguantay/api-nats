@@ -51,7 +51,7 @@ async def run(loop):
             collection = client[MONGODB_DATABASE][destination]
             
             collection.insert_one({"Nombre":"Aleix Ribera","Departamento":"Xela","Edad":0,"Forma de contagio":"Comunitario","Estado":"Recuperado"})
-            print("Data saved at %s collection in %s database: %s" % (destination, MONGODB_DATABASE, database_entry))
+            print("Data saved at %s collection in %s database: %s" % (destination, MONGODB_DATABASE, data))
         except Exception as error:
             print("Error saving data: %s" % str(error))
                 #Guardar datos o documentos
