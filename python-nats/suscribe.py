@@ -32,12 +32,13 @@ async def run(loop):
         subject = msg.subject
         reply = msg.reply
         data = msg.data.decode()
-        print("Received a message on '{subject} {reply}': {data}".format(
-            subject=subject, reply=reply, data=data))
         db = client['teststore'] #base de datos, si no existe la crea
         collection = db['products'] #coleccion de la base de datos
         #Guardar datos o documentos
-        collection.insert_one( {"Nombre":"Ramon Entro","Departamento":"Huehuetenango","Edad":"","Forma de contagio":"Comunitario","Estado":"Activo"})
+        collection.insert_one(data)
+        print("Received a message on '{subject} {reply}': {data}".format(
+            subject=subject, reply=reply, data=data))
+        
 
 
     # Basic subscription to receive all published messages
