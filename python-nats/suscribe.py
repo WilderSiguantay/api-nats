@@ -2,6 +2,10 @@ import asyncio
 import os
 import signal
 from nats.aio.client import Client as NATS
+from pymongo import MongoClient
+MONGO_URI = 'mongodb://34.69.77.226:27017' #servidor donde esta la db
+
+client = MongoClient(MONGO_URI) #nos devuelve un objeto llamado cliente, el cursor o la conexion
 
 
 async def run(loop):
@@ -30,6 +34,11 @@ async def run(loop):
         data = msg.data.decode()
         print("Received a message on '{subject} {reply}': {data}".format(
             subject=subject, reply=reply, data=data))
+        db = client['teststore'] #base de datos, si no existe la crea
+        collection = db['products'] #coleccion de la base de datos
+        #Guardar datos o documentos
+        collection.insert_one( {"Nombre":"Ramon Entro","Departamento":"Huehuetenango","Edad":"","Forma de contagio":"Comunitario","Estado":"Activo"})
+
 
     # Basic subscription to receive all published messages
     # which are being sent to a single topic 'discover'
