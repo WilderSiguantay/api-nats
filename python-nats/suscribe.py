@@ -1,9 +1,11 @@
 import asyncio
 import os
 import signal
+import pymongo
 from nats.aio.client import Client as NATS
 from pymongo import MongoClient
-import pymongo
+from flask import Flask,jsonify
+
 MONGODB_HOST = '34.69.77.226'
 MONGODB_PORT = '27017'
 MONGODB_TIMEOUT = 1000
@@ -47,7 +49,8 @@ async def run(loop):
         try:
             destination = 'products'
             collection = client[MONGODB_DATABASE][destination]
-            collection.insert_one(data)
+            datos = data.json
+            collection.insert_one(datos)
             print("Data saved at %s collection in %s database: %s" % (destination, MONGODB_DATABASE, database_entry))
         except Exception as error:
             print("Error saving data: %s" % str(error))
