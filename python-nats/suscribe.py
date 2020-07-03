@@ -6,14 +6,13 @@ import pymongo
 import redis
 from nats.aio.client import Client as NATS
 from pymongo import MongoClient
-from flask import Flask,jsonify
 
 MONGODB_HOST = '34.69.77.226'
 MONGODB_PORT = '27017'
 MONGODB_TIMEOUT = 1000
 MONGODB_DATABASE = 'Proyecto2MDB'
 URI_CONNECTION = "mongodb://" + MONGODB_HOST + ":" + MONGODB_PORT +  "/"
-r=Redis(host='104.197.76.93',port=6379,db=0)
+r=redis(host='104.197.76.93',port=6379,db=0)
 clave = 'Proyecto2RDB'
 
 
