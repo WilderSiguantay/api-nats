@@ -7,7 +7,7 @@ import redis
 from nats.aio.client import Client as NATS
 from pymongo import MongoClient
 
-MONGODB_HOST = '34.69.77.226'
+MONGODB_HOST = '34.70.248.22'
 MONGODB_PORT = '27017'
 MONGODB_TIMEOUT = 1000
 MONGODB_DATABASE = 'Proyecto2MDB'
