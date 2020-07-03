@@ -12,7 +12,7 @@ MONGODB_PORT = '27017'
 MONGODB_TIMEOUT = 1000
 MONGODB_DATABASE = 'Proyecto2MDB'
 URI_CONNECTION = "mongodb://" + MONGODB_HOST + ":" + MONGODB_PORT +  "/"
-r=redis(host='104.197.76.93',port=6379,db=0)
+r=redis(host='104.197.76.93',port=6379)
 clave = 'Proyecto2RDB'
 
 
