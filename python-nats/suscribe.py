@@ -3,6 +3,7 @@ import os
 import signal
 import json
 import pymongo
+import redis
 from nats.aio.client import Client as NATS
 from pymongo import MongoClient
 from flask import Flask,jsonify
@@ -10,8 +11,11 @@ from flask import Flask,jsonify
 MONGODB_HOST = '34.69.77.226'
 MONGODB_PORT = '27017'
 MONGODB_TIMEOUT = 1000
-MONGODB_DATABASE = 'teststore'
+MONGODB_DATABASE = 'Proyecto2MDB'
 URI_CONNECTION = "mongodb://" + MONGODB_HOST + ":" + MONGODB_PORT +  "/"
+r=Redis(host='104.197.76.93',port=6379,db=0)
+clave = 'Proyecto2RDB'
+
 
 try:
     client = pymongo.MongoClient(URI_CONNECTION, serverSelectionTimeoutMS=MONGODB_TIMEOUT)
@@ -21,7 +25,6 @@ except pymongo.errors.ServerSelectionTimeoutError as error:
     print ("Error with MongoDB connection: %s" % error)
 except pymongo.errors.ConnectionFailure as error:
     print("Could not connect to MongoDB: %s" % error)
-
 
 async def run(loop):
     nc = NATS()
@@ -48,10 +51,13 @@ async def run(loop):
         reply = msg.reply
         data = msg.data.decode()
         try:
-            destination = 'products'
+            destination = 'COVID'
             collection = client[MONGODB_DATABASE][destination]
             datos = json.loads(data) # <-- returned data is not string
             collection.insert(datos)
+            print(datos)
+            r.lpush(clave,datos)
+            
             print("Data saved at %s collection in %s database: %s" % (destination, MONGODB_DATABASE, data))
         except Exception as error:
             print("Error saving data: %s" % str(error))

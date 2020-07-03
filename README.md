@@ -34,5 +34,7 @@ kubectl create -f ingress-gateway-countour.yaml
 Se crea el registro DNS, que esta en nuestro archivo .yaml, el cual apuntará  a la ip
 del ingresses ya sea de countour (envoy) o de nginx (nginx-ingress-controller)
 
+## Desarrollo y depuración de servicios a nivel local
+Las aplicaciones de Kubernetes suelen constar de varios servicios independientes, cada uno de los que se ejecutan en su propio contenedor. Desarrollar y depurar estos servicios en un clúster de Kubernetes remoto puede ser engorroso, lo que requiere que obtenga un shell en un contenedor en ejecución y ejecute las herramientas dentro del shell remoto.
 
-
+https://kubernetes.io/docs/tasks/debug-application-cluster/local-debugging/
