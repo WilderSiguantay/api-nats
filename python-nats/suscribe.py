@@ -3,7 +3,7 @@ import os
 import signal
 import json
 import pymongo
-import redis
+from redis import Redis
 from nats.aio.client import Client as NATS
 from pymongo import MongoClient
 
