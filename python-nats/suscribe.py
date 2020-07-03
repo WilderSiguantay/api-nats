@@ -57,7 +57,7 @@ async def run(loop):
             datos = json.loads(data) # <-- returned data is not string
             collection.insert(datos)
             print(datos)
-            r.lpush(clave,json.dumps(datos))
+            r.lpush(clave,json.dumps(data))
             
             print("Data saved at %s collection in %s database: %s" % (destination, MONGODB_DATABASE, data))
         except Exception as error:
