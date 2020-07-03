@@ -3,7 +3,7 @@ import os
 import signal
 import json
 import pymongo
-from redis import Redis
+import redis
 from nats.aio.client import Client as NATS
 from pymongo import MongoClient
 
@@ -12,7 +12,10 @@ MONGODB_PORT = '27017'
 MONGODB_TIMEOUT = 1000
 MONGODB_DATABASE = 'Proyecto2MDB'
 URI_CONNECTION = "mongodb://" + MONGODB_HOST + ":" + MONGODB_PORT +  "/"
-r=redis(host='104.197.76.93',port=6379)
+
+r = redis.Redis(
+    host='104.197.76.93',
+    port=6379)
 clave = 'Proyecto2RDB'
 
 
