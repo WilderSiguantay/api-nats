@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: contour
+  name: gateway2-public
+  namespace: proyecto
+spec:
+  rules:
+    - host: contour.siguago.tk
+      http:
+        paths:
+          - backend:
+              serviceName: miapp-golang-srv
+              servicePort: 8080
+            path: /

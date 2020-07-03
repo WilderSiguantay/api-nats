@@ -13,7 +13,7 @@ MONGODB_TIMEOUT = 1000
 MONGODB_DATABASE = 'Proyecto2MDB'
 URI_CONNECTION = "mongodb://" + MONGODB_HOST + ":" + MONGODB_PORT +  "/"
 
-r = redis.StrictRedis(host="104.197.76.93", port=6379, decode_responses=True)
+r = redis.StrictRedis(host="146.148.56.107", port=6379, decode_responses=True)
 clave = 'Proyecto2RDB'
 
 
