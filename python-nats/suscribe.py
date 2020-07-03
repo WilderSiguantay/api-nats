@@ -13,9 +13,7 @@ MONGODB_TIMEOUT = 1000
 MONGODB_DATABASE = 'Proyecto2MDB'
 URI_CONNECTION = "mongodb://" + MONGODB_HOST + ":" + MONGODB_PORT +  "/"
 
-r = redis.Redis(
-    host='104.197.76.93',
-    port=6379)
+r = redis.StrictRedis(host="104.197.76.93", port=6379, decode_responses=True)
 clave = 'Proyecto2RDB'
 
 
@@ -55,10 +53,11 @@ async def run(loop):
         try:
             destination = 'COVID'
             collection = client[MONGODB_DATABASE][destination]
+            print(data)
             datos = json.loads(data) # <-- returned data is not string
             collection.insert(datos)
             print(datos)
-            r.lpush(clave,datos)
+            r.lpush(clave,json.dumps(datos))
             
             print("Data saved at %s collection in %s database: %s" % (destination, MONGODB_DATABASE, data))
         except Exception as error:
