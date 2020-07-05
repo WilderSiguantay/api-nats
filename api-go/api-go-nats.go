@@ -16,7 +16,7 @@ type Persona struct {
 	Nombre        string `json:"Nombre"`
 	Departamento  string `json:"Departamento"`
 	Edad          int    `json:"Edad"`
-	FormaContagio string `json:"Forma de contagio"`
+	FormaContagio string `json:"Forma_de_contagio"`
 	Estado        string `json:"Estado"`
 }
 
